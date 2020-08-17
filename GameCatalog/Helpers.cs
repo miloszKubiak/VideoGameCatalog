@@ -8,6 +8,7 @@ namespace GameCatalog
     {
         Action = 1,
         Adventure,
+        FirstPersonShooter,
         RolePlaying,
         Simulation,
         Strategy,
