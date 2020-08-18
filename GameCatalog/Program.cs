@@ -11,29 +11,44 @@ namespace GameCatalog
         {
             MenuActionService actionService = new MenuActionService();
             actionService = Initialize(actionService);
+            GameService gameService = new GameService();
 
             Console.WriteLine("Welcome to Video Games Catalog App!");
-            Console.WriteLine("Please let me know what you want to do: ");
-            var mainMenu = actionService.GetMenuActionsByMenuName("Main");
-            for (int i = 0; i < mainMenu.Count; i++)
+            while (true)
             {
-                Console.WriteLine($"{mainMenu[i].Id}. {mainMenu[i].Name}");
+                Console.WriteLine("\nPlease let me know what you want to do: ");
+                var mainMenu = actionService.GetMenuActionsByMenuName("Main");
+                for (int i = 0; i < mainMenu.Count; i++)
+                {
+                    Console.WriteLine($"{mainMenu[i].Id}. {mainMenu[i].Name}");
+                }
+
+                var operation = Console.ReadKey();
+                
+                switch (operation.KeyChar)
+                {
+                    case '1':
+                        var keyInfo = gameService.AddNewGameView(actionService);
+                        var id = gameService.AddNewGame(keyInfo.KeyChar);
+                        break;
+                    case '2':
+                        var removeId = gameService.RemoveGameView();
+                        gameService.RemoveGame(removeId); 
+                        break;
+                    case '3':
+                        var detailId = gameService.GameDetailSelectionView();
+                        gameService.GameDetailView(detailId);
+                        break;
+                    case '4':
+                        var typeId = gameService.GameTypeSelectionView();
+                        gameService.GamesByTypeIdView(typeId);
+                        break;
+                    default:
+                        Console.WriteLine("\nAction you entered does not exist.");
+                        break;
+                }
             }
-            var operation = Console.ReadKey();
-            switch (operation.KeyChar)
-            {
-                case '1':
-                    break;
-                case '2':
-                    break;
-                case '3':
-                    break;
-                case '4':
-                    break;
-                default:
-                    Console.WriteLine("Action you entered does not exist.");
-                    break;
-            }
+            
         }
 
         private static MenuActionService Initialize(MenuActionService actionService)
