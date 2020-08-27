@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GameCatalog
+namespace GameCatalog.Helpers
 {
     public enum GameType
     {

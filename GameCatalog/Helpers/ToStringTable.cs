@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace VideoGamesCatalog
+namespace GamesCatalog.Helpers
 {
     public static class TableParser
     {

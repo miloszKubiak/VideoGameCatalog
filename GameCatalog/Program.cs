@@ -1,17 +1,20 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using VideoGamesCatalog;
+using GamesCatalog;
+using GamesCatalog.App.Abstract;
+using GamesCatalog.App.Concrete;
+using GamesCatalog.App.Managers;
+using GamesCatalog.Domain.Entity;
 
 namespace GameCatalog
 {
-    class Program
+    public class Program
     {
         public const string FILE_NAME = @"C:\VideoGameCatalogFiles\ImportFile.xlsx";
         static void Main(string[] args)
         {
             MenuActionService actionService = new MenuActionService();
-            actionService = Initialize(actionService);
-            GameService gameService = new GameService();
+            GameManager gameManager = new GameManager(actionService);
 
             Console.WriteLine("Welcome to Video Games Catalog App!");
             while (true)
@@ -28,11 +31,10 @@ namespace GameCatalog
                 switch (operation.KeyChar)
                 {
                     case '1':
-                        var keyInfo = gameService.AddNewGameView(actionService);
-                        var id = gameService.AddNewGame(keyInfo.KeyChar);
+                        var newId = gameManager.AddNewGame();
                         break;
                     case '2':
-                        var removeId = gameService.RemoveGameView();
+                        var removeId = gameManager.
                         gameService.RemoveGame(removeId); 
                         break;
                     case '3':
@@ -50,22 +52,6 @@ namespace GameCatalog
             }
             
         }
-
-        private static MenuActionService Initialize(MenuActionService actionService)
-        {
-            actionService.AddNewAction(1, "Add game", "Main");
-            actionService.AddNewAction(2, "Remove game", "Main");
-            actionService.AddNewAction(3, "Show details", "Main");
-            actionService.AddNewAction(4, "List of games", "Main");
-
-            actionService.AddNewAction(1, "Action", "AddNewGameMenu");
-            actionService.AddNewAction(2, "Adventure", "AddNewGameMenu");
-            actionService.AddNewAction(3, "FirstPersonShooter", "AddNewGameMenu");
-            actionService.AddNewAction(4, "RolePlaying", "AddNewGameMenu");
-            actionService.AddNewAction(5, "Simulation", "AddNewGameMenu");
-            actionService.AddNewAction(6, "Strategy", "AddNewGameMenu");
-            actionService.AddNewAction(7, "Sports", "AddNewGameMenu");
-            return actionService;
-        }
+        
     }
 }
